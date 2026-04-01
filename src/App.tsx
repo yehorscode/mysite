@@ -6,7 +6,7 @@ import { ThemeProvider } from "./components/theme-provider"
 export function App() {
   return (
     <BrowserRouter>
-      <ThemeProvider>
+      <ThemeProvider defaultTheme="dark">
         <TooltipProvider>
           <Routes>
             <Route path="/" element={<Layout />}>
