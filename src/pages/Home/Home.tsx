@@ -1,5 +1,6 @@
 import { Separator } from "@/components/ui/separator"
 import { useTheme } from "@/components/theme-provider"
+import HomeHackatimeStats from "./components/HomeHackatimeStats"
 export default function Home() {
   const { theme } = useTheme()
   return (
@@ -8,12 +9,13 @@ export default function Home() {
         <h1 className="font-heading text-4xl">Hi i'm Yehor!</h1>
         <span>And this is my personal site</span>
       </div>
-      <Separator orientation="horizontal" className="my-4" />
-      <div className="p-4">
+
+      <Separator orientation="horizontal" className="my-6" />
+      <div className="px-4">
         <span className="font-heading text-2xl">
           Projects that i'm proud of
         </span>
-        <div className="my-5 grid grid-cols-2 gap-3">
+        <div className="mt-5 grid gap-3 md:grid-cols-2">
           {[
             {
               name: "Blueprint",
@@ -27,9 +29,25 @@ export default function Home() {
               name: "Sparkle ysws site",
               description:
                 "This is a site made for an upcoming duo-ysws where two friends can learn a new skill from eachother and earn rewards while learning",
-              image: "public/projects/sparkle",
+              image: "/projects/sparkle",
               link: "https://sparkle.dino.icu",
               repo: "https://github.com/yehorscode/sparkle-ysws",
+            },
+            {
+              name: "RssTUI",
+              description:
+                "App made in Python and Textual that can parse Rss feeds into a sleep tui interface",
+              image: "/projects/rsstui",
+              link: "https://pypi.org/project/rsstui/",
+              repo: "https://github.com/yehorscode/RssTUI",
+            },
+            {
+              name: "More of my projects?",
+              description:
+                "Visit my GitHub and see more of my repos (spoiler: most aren't too good)",
+              image: "/projects/github",
+              link: "https://github.com/yehorscode",
+              repo: "https://github.com/yehorscode",
             },
           ].map((project) => (
             <div
@@ -61,6 +79,14 @@ export default function Home() {
             </div>
           ))}
         </div>
+      </div>
+      <Separator orientation="horizontal" className="my-6" />
+      <div className="flex flex-col px-4">
+        <span className="font-heading text-2xl">My hackatime stats</span>
+        <span className="opacity-80">
+          Hackatime is Hack Club's alternative to Wakatime
+        </span>
+        <HomeHackatimeStats />
       </div>
     </div>
   )

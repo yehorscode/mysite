@@ -14,12 +14,11 @@ export default function Layout() {
   const { theme, setTheme } = useTheme()
   const navigate = useNavigate()
   return (
-    <div className="flex min-h-screen min-w-screen p-3">
-      <div className="mx-auto w-full border-4 p-2 lg:w-250">
-        <nav className="ixed mb-5 w-full">
+    <div className="flex min-h-screen p-3">
+      <div className="mx-auto flex w-full flex-col gap-3 border-4 p-2 lg:w-250">
+        <nav className="w-full border-b-4 pb-2">
           <div className="flex">
             <Button
-              size={"lg"}
               variant={"outline"}
               onClick={() => navigate("/")}
               className=""
@@ -27,7 +26,7 @@ export default function Layout() {
               Yehor
             </Button>
             <div className="ml-auto flex gap-3">
-              <Button>About</Button>
+              <Button variant={"outline"}>About</Button>
               <Select onValueChange={setTheme} value={theme}>
                 <SelectTrigger className="ml-auto">
                   <SelectValue placeholder="Select theme" />
@@ -42,10 +41,13 @@ export default function Layout() {
             </div>
           </div>
         </nav>
-        <div className="mt-12 min-w-full">
+        <div className="min-w-full">
           <Outlet />
         </div>
-        <footer></footer>
+        <footer className="border-4 p-2 font-mono">
+          <span>Made by Yehor</span>
+          <div className="ml-auto"></div>
+        </footer>
       </div>
     </div>
   )
