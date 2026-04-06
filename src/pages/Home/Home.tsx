@@ -57,6 +57,9 @@ export default function Home() {
               <img
                 src={project.image + "_" + theme + ".webp"}
                 alt={project.name + " showcase image"}
+                loading="lazy"
+                decoding="async"
+                fetchPriority="low"
               />
               <span className="mt-3 font-heading text-2xl">{project.name}</span>
               <span className="text-sm">{project.description}</span>
