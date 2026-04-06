@@ -36,7 +36,7 @@ export default function Home() {
             {
               name: "RssTUI",
               description:
-                "App made in Python and Textual that can parse Rss feeds into a sleep tui interface",
+                "App made in Python and Textual that can parse Rss feeds into a sleek tui interface",
               image: "/projects/rsstui",
               link: "https://pypi.org/project/rsstui/",
               repo: "https://github.com/yehorscode/RssTUI",
