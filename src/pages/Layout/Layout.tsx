@@ -26,7 +26,7 @@ export default function Layout() {
               Yehor
             </Button>
             <div className="ml-auto flex gap-3">
-              <Button variant={"disabled"}>About</Button>
+              <Button>About</Button>
               <Select onValueChange={setTheme} value={theme}>
                 <SelectTrigger className="ml-auto">
                   <SelectValue placeholder="Select theme" />
