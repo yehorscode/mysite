@@ -1,7 +1,7 @@
 import { useSearchParams } from "react-router-dom"
 
 export default function ErrorPage() {
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams] = useSearchParams()
   const error_code = searchParams.get("code")
   const code_table = {
     "404":
@@ -13,7 +13,7 @@ export default function ErrorPage() {
       <h1 className="font-heading text-3xl">
         Error {error_code && <span>{error_code}</span>}
       </h1>
-      <p>{code_table[error_code]}</p>
+      <p>{error_code && code_table[error_code as keyof typeof code_table]}</p>
     </div>
   )
 }

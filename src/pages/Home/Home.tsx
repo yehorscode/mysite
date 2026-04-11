@@ -91,6 +91,14 @@ export default function Home() {
         </span>
         <HomeHackatimeStats />
       </div>
+      <Separator orientation="horizontal" className="my-6" />
+      <div className="align-center flex flex-col justify-center bg-accent py-5 text-center text-white">
+        <span className="font-mono text-xl">Want to contact me?</span>
+        <span>
+          Only good way to do it is to email me on{" "}
+          <a href="mailto:me@yehor.pl.eu.org">me@yehor.pl.eu.org</a>
+        </span>
+      </div>
     </div>
   )
 }
