@@ -5,7 +5,7 @@ export default function Home() {
   const { theme } = useTheme()
   return (
     <div className="flex flex-col">
-      <div className="bg-accent p-5 text-white">
+      <div className="bg-accent p-4 text-white">
         <h1 className="font-heading text-4xl">Hi i'm Yehor!</h1>
         <span>And this is my personal site</span>
       </div>
@@ -96,7 +96,12 @@ export default function Home() {
         <span className="font-mono text-xl">Want to contact me?</span>
         <span>
           Only good way to do it is to email me on{" "}
-          <a href="mailto:me@yehor.pl.eu.org">me@yehor.pl.eu.org</a>
+          <a href="mailto:me@yehor.pl.eu.org" className="underline">
+            me@yehor.pl.eu.org
+          </a>
+        </span>
+        <span className="text-xs opacity-50">
+          or find me yourself on some socials idk
         </span>
       </div>
     </div>

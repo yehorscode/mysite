@@ -18,14 +18,11 @@ export default function Layout() {
       <div className="mx-auto flex w-full flex-col gap-3 border-4 p-2 lg:w-250">
         <nav className="w-full border-b-4 pb-2">
           <div className="flex">
-            <Button
-              variant={"outline"}
-              onClick={() => navigate("/")}
-              className=""
-            >
+            <Button onClick={() => navigate("/")} className="">
               Yehor
             </Button>
             <div className="ml-auto flex gap-3">
+              <Button onClick={() => navigate("/blog")}>Blog</Button>
               <Button>About</Button>
               <Select onValueChange={setTheme} value={theme}>
                 <SelectTrigger className="ml-auto">
