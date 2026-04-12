@@ -47,7 +47,7 @@ export default function BlogPage() {
   return (
     <div className="">
       <div className="flex flex-col bg-accent p-4 text-white">
-        <span className="font-heading text-4xl">Blog page</span>
+        <span className="font-heading text-4xl font-extrabold">Blog page</span>
         <span>Thoughts that i want to document</span>
       </div>
       <div className="mt-5 grid gap-4">

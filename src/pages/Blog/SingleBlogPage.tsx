@@ -49,7 +49,9 @@ export default function SingleBlogPage() {
         <ArrowBigLeft size={20} /> Back to posts
       </span>
       <div className="mt-2 flex flex-col gap-2 border-b-2 border-accent pb-3">
-        <span className="font-heading text-5xl">{post?.title}</span>
+        <span className="font-heading text-5xl font-extrabold">
+          {post?.title}
+        </span>
         <div className="flex">
           <span className="mt-auto font-mono text-2xl">
             {post?.description}

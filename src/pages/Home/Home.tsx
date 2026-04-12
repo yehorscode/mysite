@@ -6,13 +6,13 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       <div className="bg-accent p-4 text-white">
-        <h1 className="font-heading text-4xl">Hi i'm Yehor!</h1>
+        <h1 className="font-heading text-4xl font-extrabold">Hi i'm Yehor!</h1>
         <span>And this is my personal site</span>
       </div>
 
       <Separator orientation="horizontal" className="my-6" />
       <div className="px-4">
-        <span className="font-heading text-2xl">
+        <span className="font-heading text-2xl font-medium">
           Projects that i'm proud of
         </span>
         <div className="mt-5 grid gap-3 md:grid-cols-2">
@@ -61,7 +61,9 @@ export default function Home() {
                 decoding="async"
                 fetchPriority="low"
               />
-              <span className="mt-3 font-heading text-2xl">{project.name}</span>
+              <span className="mt-3 font-heading text-2xl font-medium">
+                {project.name}
+              </span>
               <span className="text-sm">{project.description}</span>
               <div className="mt-auto flex gap-5 font-medium">
                 <a

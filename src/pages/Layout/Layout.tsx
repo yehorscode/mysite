@@ -17,7 +17,7 @@ export default function Layout() {
     <div className="flex min-h-screen p-3">
       <div className="mx-auto flex w-full flex-col gap-3 border-4 p-2 lg:w-250">
         <nav className="w-full border-b-4 pb-2">
-          <div className="flex">
+          <div className="flex items-center">
             <Button onClick={() => navigate("/")} className="">
               Yehor
             </Button>
@@ -41,9 +41,16 @@ export default function Layout() {
         <div className="min-w-full flex-1">
           <Outlet />
         </div>
-        <footer className="mt-auto border-4 p-2 font-mono">
+        <footer className="mt-auto flex items-center border-4 p-2 font-mono">
           <span>Made by Yehor</span>
-          <div className="ml-auto"></div>
+          <div className="ml-auto">
+            <button
+              onClick={() => navigate("/admin")}
+              className="opacity-50 hover:cursor-pointer hover:underline"
+            >
+              Admin
+            </button>
+          </div>
         </footer>
       </div>
     </div>
