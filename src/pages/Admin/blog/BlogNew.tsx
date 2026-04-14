@@ -1,5 +1,5 @@
 import { Separator } from "@/components/ui/separator"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Rss, ArrowDownFromLine, SaveIcon, TrashIcon } from "lucide-react"
 import ReactMarkdown from "react-markdown"
 import { Button } from "@/components/ui/button"
