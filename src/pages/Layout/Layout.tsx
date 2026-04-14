@@ -38,10 +38,10 @@ export default function Layout() {
             </div>
           </div>
         </nav>
-        <div className="min-w-full flex-1">
+        <div className="w-full flex-1">
           <Outlet />
         </div>
-        <footer className="mt-auto flex items-center border-4 p-2 font-mono">
+        <footer className="z-10 mt-auto flex items-center border-4 p-2 font-mono">
           <span>Made by Yehor</span>
           <div className="ml-auto">
             <button

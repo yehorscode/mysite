@@ -34,8 +34,8 @@ export default function AdminPage() {
         </span>
         <div className="grid gap-4">
           <button
-            onClick={() => navigate("/admin/editor")}
-            className="w-fit bg-amber-800 p-2 transition-all hover:cursor-pointer hover:bg-amber-700"
+            onClick={() => navigate("/admin/blog")}
+            className="w-fit bg-blue-500 p-2 text-white transition-all hover:cursor-pointer hover:bg-blue-400"
           >
             <span className="font-serif text-2xl font-extrabold">
               Blog editor

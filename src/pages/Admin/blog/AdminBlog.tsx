@@ -3,8 +3,10 @@ import { pb } from "@/components/pocketbase"
 import { Button } from "@/components/ui/button"
 import type { Post } from "@/types/blog"
 import { useEffect, useState } from "react"
-
-export default function BlogEditor() {
+import { toast } from "sonner"
+import { useNavigate } from "react-router-dom"
+export default function AdminBlog() {
+  const navigate = useNavigate()
   CheckAdmin()
   const [posts, setPosts] = useState<Post[]>()
   const [loading, setLoading] = useState(true)
@@ -36,6 +38,15 @@ export default function BlogEditor() {
     }
   }, [])
 
+  // handling of redirects
+  function EditBlog(id: string) {
+    toast.info(`Okaga: Editing the ${id} post`)
+    navigate(`/admin/blog/edit/${id}`)
+  }
+  function NewBlog() {
+    toast.info("Redirecting... Happy writing!")
+    navigate("/admin/blog/new")
+  }
   if (loading) return <div>Loading...</div>
   if (error) return <div>Error: {error}</div>
   return (
@@ -44,7 +55,7 @@ export default function BlogEditor() {
         <span className="font-heading text-xl font-medium">
           Write a new blogpost
         </span>
-        <Button>New post</Button>
+        <Button onClick={() => NewBlog()}>New post</Button>
       </div>
       <div className="flex h-fit w-2/3 flex-col gap-2 border-4 p-4">
         <span className="font-heading text-xl">Edit existing one:</span>
@@ -53,7 +64,11 @@ export default function BlogEditor() {
             <span className="text-sm opacity-50">#{post.id}</span>
             <span className="font-heading text-xl">{post.title}</span>
             <span className="mb-2">{post.description}</span>
-            <Button variant={"outline"} key={post.id}>
+            <Button
+              onClick={() => EditBlog(post.id)}
+              variant={"outline"}
+              key={post.id}
+            >
               Edit {post.title}
             </Button>
           </div>

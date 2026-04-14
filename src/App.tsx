@@ -10,7 +10,9 @@ import SingleBlogPage from "@/pages/Blog/SingleBlogPage"
 import AdminPage from "@/pages/Admin/AdminPage"
 import { Toaster } from "@/components/ui/sonner"
 import LoginPage from "@/pages/Admin/LoginPage"
-import BlogEditor from "@/pages/Admin/BlogEditor"
+import AdminBlog from "@/pages/Admin/blog/AdminBlog"
+import BlogNewPage from "@/pages/Admin/blog/BlogNew"
+import BlogEditPage from "@/pages/Admin/blog/BlogEdit"
 export function App() {
   return (
     <BrowserRouter>
@@ -24,7 +26,12 @@ export function App() {
               <Route path="blog/:slug" element={<SingleBlogPage />}></Route>
               <Route path="admin" element={<AdminPage />}></Route>
               <Route path="admin/login" element={<LoginPage />}></Route>
-              <Route path="admin/editor" element={<BlogEditor />}></Route>
+              <Route path="admin/blog" element={<AdminBlog />}></Route>
+              <Route path="admin/blog/new" element={<BlogNewPage />}></Route>
+              <Route
+                path="admin/blog/edit/:id"
+                element={<BlogEditPage />}
+              ></Route>
             </Route>
           </Routes>
         </TooltipProvider>
