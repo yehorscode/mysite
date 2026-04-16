@@ -4,7 +4,8 @@ import { type Post } from "@/types/blog"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { ArrowBigLeft } from "lucide-react"
-
+import ReactMarkdown from "react-markdown"
+import { markdownComponents } from "@/components/markdown-components"
 export default function SingleBlogPage() {
   const { slug } = useParams()
   const [post, setPost] = useState<Post>()
@@ -62,8 +63,10 @@ export default function SingleBlogPage() {
           </span>
         </div>
       </div>
-      <div className="mt-3">
-        <span>{post?.body}</span>
+      <div className="mt-3 text-lg">
+        <ReactMarkdown components={markdownComponents}>
+          {post?.body}
+        </ReactMarkdown>
       </div>
     </div>
   )

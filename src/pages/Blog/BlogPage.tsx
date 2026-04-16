@@ -51,22 +51,26 @@ export default function BlogPage() {
         <span>Thoughts that i want to document</span>
       </div>
       <div className="mt-5 grid gap-4">
-        {posts?.map((post) => (
-          <Link
-            to={`/blog/${post.slug}`}
-            key={post.id}
-            className="transiton-all border-2 p-4 duration-75 hover:cursor-pointer hover:bg-accent/50"
-          >
-            <h2 className="flex gap-2 font-heading text-2xl">
-              {post.title}{" "}
-              <span className="font-mono opacity-30">/{post?.slug}</span>
-            </h2>
-            <p className="mt-1 font-mono text-xl">{post.description}</p>
-            <span className="text-xs opacity-80">
-              {new Date(post.created).toLocaleString()}
-            </span>
-          </Link>
-        ))}
+        {posts
+          ?.sort(
+            (a, b) =>
+              new Date(b.created).getTime() - new Date(a.created).getTime()
+          )
+          .map((post) => (
+            <Link
+              to={`/blog/${post.slug}`}
+              key={post.id}
+              className="transiton-all flex flex-col border-2 p-4 duration-75 hover:cursor-pointer hover:bg-accent/50"
+            >
+              <span className="mb-0.5 text-xs opacity-80">
+                {new Date(post.created).toLocaleString()}
+              </span>
+              <h2 className="flex gap-2 font-heading text-2xl font-bold">
+                {post.title}
+              </h2>
+              <p className="mt-1 text-xl">{post.description}</p>
+            </Link>
+          ))}
       </div>
     </div>
   )

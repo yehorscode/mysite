@@ -20,6 +20,12 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { toast } from "sonner"
+import { pb } from "@/components/pocketbase"
+import slugify from "slugify"
+import { Input } from "@/components/ui/input"
+import { Field, FieldLabel } from "@/components/ui/field"
+import { markdownComponents } from "@/components/markdown-components"
+
 export default function BlogNewPage() {
   const [text, setText] = useState("")
   const [title, setTitle] = useState("")
@@ -31,20 +37,26 @@ export default function BlogNewPage() {
         : undefined
     return savedData ? JSON.parse(savedData).date : undefined
   })
-
+  const [slug, setSlug] = useState("")
   function Save() {
-    if (title && description && text) {
-      localStorage.setItem(
-        "blogSave",
-        JSON.stringify({ title, description, text, date: new Date() })
-      )
-      setLastSaved(new Date())
-      if (localStorage.getItem("blogSave")) {
-        toast.success("Saved a new save")
-      }
-    } else {
-      toast.error("Fill in all the fields first!")
+    localStorage.setItem(
+      "blogSave",
+      JSON.stringify({ title, description, text, date: new Date() })
+    )
+    setLastSaved(new Date())
+    if (localStorage.getItem("blogSave")) {
+      toast.success("Saved a new save")
     }
+  }
+  function changeTitle(x: string) {
+    setTitle(x)
+    setSlug(
+      slugify(x, {
+        replacement: "-",
+        lower: true,
+        strict: true,
+      }).toString()
+    )
   }
   function LoadSave() {
     if (localStorage.getItem("blogSave")) {
@@ -57,6 +69,7 @@ export default function BlogNewPage() {
       )
     } else {
       toast.error("No save found")
+      return
     }
   }
   function ClearBlog() {
@@ -70,13 +83,42 @@ export default function BlogNewPage() {
     setLastSaved(undefined)
     toast.success("Cleared content. Clear finished!")
   }
+  function SubmitBlog() {
+    if (title && description && text) {
+      setSlug(
+        slugify(title, {
+          replacement: "-",
+          lower: true,
+          strict: true,
+        }).toString()
+      )
+      const data = {
+        title: title,
+        description: description,
+        body: text,
+        slug: slug,
+      }
+      pb.collection("posts")
+        .create(data)
+        .then((record) => {
+          if (record) {
+            toast.success("Blog post created!")
+          }
+        })
+    } else {
+      Save()
+      toast.error("To submit first fill in everything")
+      return
+    }
+  }
   return (
     <div className="h-[90%] px-2">
       <div className="flex flex-col gap-2">
+        <span className="text-xs opacity-50">Slug: {slug}</span>
         <input
           placeholder="Title..."
           value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) => changeTitle(e.target.value)}
           className="font-heading text-xl outline-none"
         />
         <input
@@ -132,9 +174,37 @@ export default function BlogNewPage() {
               <SaveIcon /> Save
             </Button>
           </ButtonGroup>
-          <Button size={"lg"} className="bg-accent p-2 text-white">
-            <Rss /> Upload
-          </Button>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button size={"lg"} className="bg-accent p-2 text-white">
+                <Rss /> Upload
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Publish to everyone</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This will make a new record inside the database and the
+                  blogpost will be published for all to see. Are you fully sure
+                  you want to publish?
+                </AlertDialogDescription>
+                <Field>
+                  <FieldLabel>Change slug</FieldLabel>
+                  <Input
+                    onChange={(e) => setSlug(e.target.value)}
+                    placeholder="slug"
+                    value={slug}
+                  />
+                </Field>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Keep writing</AlertDialogCancel>
+                <AlertDialogAction onClick={() => SubmitBlog()}>
+                  Publish
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </div>
       </div>
       <div className="mt-3 flex h-full gap-2">
@@ -151,36 +221,7 @@ export default function BlogNewPage() {
         ></textarea>
         <div className="h-full w-1/2 min-w-0 overflow-y-auto border p-2 wrap-break-word">
           <div className="prose prose-sm max-w-none font-mono text-lg [&_pre]:overflow-x-auto [&_pre]:whitespace-pre-wrap">
-            <ReactMarkdown
-              components={{
-                strong: ({ children }) => (
-                  <span className="text-green-500">**{children}**</span>
-                ),
-                h1: ({ children }) => (
-                  <h1 className="font-bold text-cyan-500"># {children}</h1>
-                ),
-                h2: ({ children }) => (
-                  <h2 className="font-bold text-pink-500">## {children}</h2>
-                ),
-                h3: ({ children }) => (
-                  <h3 className="font-bold text-yellow-500">### {children}</h3>
-                ),
-                em: ({ children }) => (
-                  <span className="text-fuchsia-400 italic">_{children}_</span>
-                ),
-                li: ({ children }) => <li className="">- {children}</li>,
-                a: ({ href, children }) => (
-                  <a
-                    className="text-blue-500 underline"
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {children}
-                  </a>
-                ),
-              }}
-            >
+            <ReactMarkdown components={markdownComponents}>
               {text}
             </ReactMarkdown>
           </div>
