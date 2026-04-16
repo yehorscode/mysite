@@ -6,13 +6,20 @@ import { useNavigate } from "react-router-dom"
 import { ArrowBigLeft } from "lucide-react"
 import ReactMarkdown from "react-markdown"
 import { markdownComponents } from "@/components/markdown-components"
-import { Helmet } from "react-helmet"
+import { Helmet } from "react-helmet-async"
 export default function SingleBlogPage() {
   const { slug } = useParams()
   const [post, setPost] = useState<Post>()
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const navigate = useNavigate()
+  const pageTitle = post?.title ? `${post.title} | Yehor's Blog` : "Blog | Yehor's personal site"
+  const pageDescription =
+    post?.description ?? "Read this post on Yehor's personal site."
+  const pageUrl =
+    typeof window !== "undefined"
+      ? window.location.href
+      : `https://yehor.pl.eu.org/blog/${slug ?? ""}`
 
   useEffect(() => {
     let isMounted = true
@@ -45,8 +52,16 @@ export default function SingleBlogPage() {
   return (
     <div className="flex flex-col p-4 text-left">
       <Helmet>
-        <title>{post?.title}</title>
-        <meta name="description" content={post?.description} />
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:title" content={pageTitle} />
+        <meta property="twitter:description" content={pageDescription} />
+        <link rel="canonical" href={pageUrl} />
       </Helmet>
       <span
         onClick={() => navigate("/blog")}
