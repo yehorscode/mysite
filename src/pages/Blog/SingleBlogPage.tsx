@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom"
 import { ArrowBigLeft } from "lucide-react"
 import ReactMarkdown from "react-markdown"
 import { markdownComponents } from "@/components/markdown-components"
+import { Helmet } from "react-helmet"
 export default function SingleBlogPage() {
   const { slug } = useParams()
   const [post, setPost] = useState<Post>()
@@ -43,6 +44,10 @@ export default function SingleBlogPage() {
 
   return (
     <div className="flex flex-col p-4 text-left">
+      <Helmet>
+        <title>{post?.title}</title>
+        <meta name="description" content={post?.description} />
+      </Helmet>
       <span
         onClick={() => navigate("/blog")}
         className="flex h-fit gap-1 text-sm text-foreground underline hover:cursor-pointer"

@@ -44,7 +44,6 @@ export default function HomeHackatimeStats() {
       setStats(res.data)
     })
   }, [])
-  console.log(stats)
   return (
     <div className="">
       <div className="flex flex-col">
