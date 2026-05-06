@@ -1,11 +1,10 @@
-import { CheckAdmin } from "@/components/admin-check"
 import { pb } from "@/components/pocketbase"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { useNavigate } from "react-router-dom"
 export default function AdminPage() {
   const navigate = useNavigate()
-  CheckAdmin()
+  // CheckAdmin()
   function logout() {
     pb.authStore.clear()
     window.location.reload()

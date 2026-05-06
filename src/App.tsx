@@ -13,6 +13,7 @@ import LoginPage from "@/pages/Admin/LoginPage"
 import AdminBlog from "@/pages/Admin/blog/AdminBlog"
 import BlogNewPage from "@/pages/Admin/blog/BlogNew"
 import BlogEditPage from "@/pages/Admin/blog/BlogEdit"
+import { ProtectedRoute } from "@/components/protected-route"
 export function App() {
   return (
     <BrowserRouter>
@@ -24,14 +25,13 @@ export function App() {
               <Route path="*" element={<ErrorPage />}></Route>
               <Route path="blog" element={<BlogPage />}></Route>
               <Route path="blog/:slug" element={<SingleBlogPage />}></Route>
-              <Route path="admin" element={<AdminPage />}></Route>
               <Route path="admin/login" element={<LoginPage />}></Route>
-              <Route path="admin/blog" element={<AdminBlog />}></Route>
-              <Route path="admin/blog/new" element={<BlogNewPage />}></Route>
-              <Route
-                path="admin/blog/edit/:id"
-                element={<BlogEditPage />}
-              ></Route>
+              <Route path="admin" element={<ProtectedRoute level="admin" />}>
+                <Route index element={<AdminPage />}></Route>
+                <Route path="blog" element={<AdminBlog />}></Route>
+                <Route path="blog/new" element={<BlogNewPage />}></Route>
+                <Route path="blog/edit/:id" element={<BlogEditPage />}></Route>
+              </Route>
             </Route>
           </Routes>
         </TooltipProvider>

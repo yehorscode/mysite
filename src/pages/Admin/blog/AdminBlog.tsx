@@ -1,4 +1,3 @@
-import { CheckAdmin } from "@/components/admin-check"
 import { pb } from "@/components/pocketbase"
 import { Button } from "@/components/ui/button"
 import type { Post } from "@/types/blog"
@@ -7,7 +6,7 @@ import { toast } from "sonner"
 import { useNavigate } from "react-router-dom"
 export default function AdminBlog() {
   const navigate = useNavigate()
-  CheckAdmin()
+  // CheckAdmin()
   const [posts, setPosts] = useState<Post[]>()
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
