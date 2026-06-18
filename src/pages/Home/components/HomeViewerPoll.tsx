@@ -1,10 +1,5 @@
 import { useState } from "react"
 import { Checkbox } from "@/components/ui/checkbox"
-// interface pollAnswer {
-//   poll: string
-//   vote: string
-//   timestamp: string
-}
 import { pb } from "@/components/pocketbase"
 // import { X } from "lucide-react"
 
