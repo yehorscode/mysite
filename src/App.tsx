@@ -14,7 +14,10 @@ import AdminBlog from "@/pages/Admin/blog/AdminBlog"
 import BlogNewPage from "@/pages/Admin/blog/BlogNew"
 import BlogEditPage from "@/pages/Admin/blog/BlogEdit"
 import { ProtectedRoute } from "@/components/protected-route"
+import HomeViewerPoll from "@/pages/Home/components/HomeViewerPoll"
+import { useState } from "react"
 export function App() {
+  const [showPoll, setShowPoll] = useState(true)
   return (
     <BrowserRouter>
       <ThemeProvider defaultTheme="dark">
@@ -37,6 +40,7 @@ export function App() {
         </TooltipProvider>
         <Toaster />
       </ThemeProvider>
+      {showPoll && <HomeViewerPoll onClose={() => setShowPoll(false)} />}
       {/*<Analytics />*/}
     </BrowserRouter>
   )
