@@ -1,10 +1,16 @@
 import { Separator } from "@/components/ui/separator"
 import { useTheme } from "@/components/theme-provider"
 import HomeHackatimeStats from "./components/HomeHackatimeStats"
+import HomeViewerPoll from "@/pages/Home/components/HomeViewerPoll"
+import { useState } from "react"
 export default function Home() {
+  const [showPoll, setShowPoll] = useState(
+    () => !localStorage.getItem("color-poll")
+  )
   const { theme } = useTheme()
   return (
     <div className="flex flex-col">
+      {showPoll && <HomeViewerPoll onClose={() => setShowPoll(false)} />}
       <div className="bg-accent p-4 text-white">
         <h1 className="font-heading text-4xl font-extrabold">Hi i'm Yehor!</h1>
         <span>And this is my personal site</span>

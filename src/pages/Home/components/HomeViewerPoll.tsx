@@ -86,6 +86,7 @@ export default function HomeViewerPoll({ onClose }: HomeViewerPollProps) {
         console.error("Error submitting vote:", e)
       })
     setShowThanks(true)
+
     setTimeout(() => {
       onClose()
     }, 2000)
