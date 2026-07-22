@@ -5,13 +5,10 @@ import HomeViewerPoll from "@/pages/Home/components/HomeViewerPoll"
 import { useState } from "react"
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 export default function Home() {
@@ -20,15 +17,7 @@ export default function Home() {
   )
   const [dialogOpen, setDialogOpen] = useState(false)
   const { theme } = useTheme()
-  const [copied, setCopied] = useState(false)
 
-  const buttonHtmlCode = `<a href="https://yehor.pl.eu.org">\n  <img src="https://button.yehor.pl.eu.org"/>\n</a>`
-
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(buttonHtmlCode)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
   function openButtonDialog() {
     setDialogOpen(true)
   }
