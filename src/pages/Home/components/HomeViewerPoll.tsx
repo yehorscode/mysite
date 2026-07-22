@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Checkbox } from "@/components/ui/checkbox"
 import { pb } from "@/components/pocketbase"
 // import { X } from "lucide-react"
@@ -41,6 +41,7 @@ export default function HomeViewerPoll({ onClose }: HomeViewerPollProps) {
   //   return saved ? JSON.parse(saved) : []
   // })
   const [chosenColorHex, setChosenColorHex] = useState<string>()
+  const [ignored, setIgnored] = useState<boolean>()
   const [chosenColor, setChosenColor] = useState<string>()
   const [isColorblind, setIsColorblind] = useState(false)
   const [vote, setVote] = useState<voteType>()
@@ -93,65 +94,81 @@ export default function HomeViewerPoll({ onClose }: HomeViewerPollProps) {
   }
   const doGrayscale = isColorblind ? "grayscale(0.9)" : "grayscale(0)"
   function dontAnswer() {
+    localStorage.setItem("color-poll", "ignore")
     onClose()
   }
+  function checkIgnore() {
+    if (localStorage.getItem("color-poll") == "ignore") {
+      setIgnored(true)
+    }
+  }
+  useEffect(() => {
+    checkIgnore()
+  }, [])
   return (
     <div
-      className="absolute top-0 right-0 m-2 flex flex-col border-4 bg-surface-1 p-2"
+      className="absolute top-0 right-0 z-100 m-2 flex flex-col border-4 bg-surface-1 p-2"
       style={{ filter: doGrayscale }}
     >
-      {!showThanks && (
-        <div className="w-60">
-          <span className="flex font-heading font-bold">
-            Hey! Mind a quick vote?
-          </span>
-          <span>What's your favourite color?</span>
-          <div className="mt-2 grid grid-cols-2 gap-2">
-            {colorMap.map((color) => (
-              <button
-                onClick={() => selectColor(color.color)}
-                className="flex items-center justify-center py-1 text-center hover:cursor-pointer hover:underline"
-                style={{ backgroundColor: color.hex }}
-              >
-                {color.color}
-              </button>
-            ))}
-          </div>
-          <span className="py-2 text-sm">Fancy more colors?</span>
-          <div className="grid grid-cols-2 gap-2">
-            {advancedColors.map((color) => (
-              <button
-                onClick={() => selectColor(color.color)}
-                className="flex items-center justify-center py-1 text-center hover:cursor-pointer hover:underline"
-                style={{ backgroundColor: color.hex }}
-              >
-                {color.color}
-              </button>
-            ))}
-          </div>
-          <span className="my-2 flex items-center gap-2">
-            <Checkbox
-              checked={isColorblind}
-              onCheckedChange={(checked) => setIsColorblind(checked === true)}
-            />
-            I am colorblind
-          </span>
+      {!ignored && (
+        <div>
+          {!showThanks && (
+            <div className="w-60">
+              <span className="flex font-heading font-bold">
+                Hey! Mind a quick vote?
+              </span>
+              <span>What's your favourite color?</span>
+              <div className="mt-2 grid grid-cols-2 gap-2">
+                {colorMap.map((color) => (
+                  <button
+                    onClick={() => selectColor(color.color)}
+                    className="flex items-center justify-center py-1 text-center hover:cursor-pointer hover:underline"
+                    style={{ backgroundColor: color.hex }}
+                  >
+                    {color.color}
+                  </button>
+                ))}
+              </div>
+              <span className="py-2 text-sm">Fancy more colors?</span>
+              <div className="grid grid-cols-2 gap-2">
+                {advancedColors.map((color) => (
+                  <button
+                    onClick={() => selectColor(color.color)}
+                    className="flex items-center justify-center py-1 text-center hover:cursor-pointer hover:underline"
+                    style={{ backgroundColor: color.hex }}
+                  >
+                    {color.color}
+                  </button>
+                ))}
+              </div>
+              <span className="my-2 flex items-center gap-2">
+                <Checkbox
+                  checked={isColorblind}
+                  onCheckedChange={(checked) =>
+                    setIsColorblind(checked === true)
+                  }
+                />
+                I am colorblind
+              </span>
 
-          <button
-            style={{ backgroundColor: chosenColorHex ?? "indigo" }}
-            className="w-full transition-all hover:cursor-pointer hover:underline"
-            onClick={() => submitAnswer(chosenColor ?? "")}
-          >
-            Submit!
-          </button>
-          <button
-            className="mt-2 w-full bg-red-700 transition-all hover:cursor-pointer hover:underline"
-            onClick={() => dontAnswer()}
-          >
-            No thanks (close)
-          </button>
+              <button
+                style={{ backgroundColor: chosenColorHex ?? "indigo" }}
+                className="w-full transition-all hover:cursor-pointer hover:underline"
+                onClick={() => submitAnswer(chosenColor ?? "")}
+              >
+                Submit!
+              </button>
+              <button
+                className="mt-2 w-full bg-red-700 transition-all hover:cursor-pointer hover:underline"
+                onClick={() => dontAnswer()}
+              >
+                No thanks (close)
+              </button>
+            </div>
+          )}
         </div>
       )}
+
       {showThanks && (
         <div className="w-60">
           <span>Thank you!</span>
